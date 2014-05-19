@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Happy.Ioc", "Happy.Ioc\Happy.Ioc.csproj", "{94D50865-5D24-4C63-8E10-B18FBC4DBFFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Happy.Ioc.Aop.Castle", "Happy.Ioc.Aop.Castle\Happy.Ioc.Aop.Castle.csproj", "{9A1CDC3C-A3A7-402E-A5DD-C85164C1F51E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Happy.Ioc.Autofac", "Happy.Ioc.Autofac\Happy.Ioc.Autofac.csproj", "{84EE081F-81A9-41AB-B56E-D7644EA256D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,14 @@ Global
 		{94D50865-5D24-4C63-8E10-B18FBC4DBFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94D50865-5D24-4C63-8E10-B18FBC4DBFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94D50865-5D24-4C63-8E10-B18FBC4DBFFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A1CDC3C-A3A7-402E-A5DD-C85164C1F51E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A1CDC3C-A3A7-402E-A5DD-C85164C1F51E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A1CDC3C-A3A7-402E-A5DD-C85164C1F51E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A1CDC3C-A3A7-402E-A5DD-C85164C1F51E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84EE081F-81A9-41AB-B56E-D7644EA256D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84EE081F-81A9-41AB-B56E-D7644EA256D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84EE081F-81A9-41AB-B56E-D7644EA256D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84EE081F-81A9-41AB-B56E-D7644EA256D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

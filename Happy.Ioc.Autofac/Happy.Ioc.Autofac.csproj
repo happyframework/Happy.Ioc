@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{94D50865-5D24-4C63-8E10-B18FBC4DBFFB}</ProjectGuid>
+    <ProjectGuid>{84EE081F-81A9-41AB-B56E-D7644EA256D4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Happy.Ioc</RootNamespace>
-    <AssemblyName>Happy.Ioc</AssemblyName>
+    <RootNamespace>Happy.Ioc.Autofac</RootNamespace>
+    <AssemblyName>Happy.Ioc.Autofac</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Happy">
       <HintPath>..\..\Happy\Happy\bin\Debug\Happy.dll</HintPath>
     </Reference>
@@ -42,25 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aop\AppDomainAspectRegistry.cs" />
-    <Compile Include="Aop\IAdvice.cs" />
-    <Compile Include="Aop\IIntroductionAspect.cs" />
-    <Compile Include="Aop\IPointcutAdvice.cs" />
-    <Compile Include="Aop\IPointcutAspect.cs" />
-    <Compile Include="Aop\IAspectRegistry.cs" />
-    <Compile Include="Aop\IAroundAdvice.cs" />
-    <Compile Include="Aop\IProxyFactory.cs" />
-    <Compile Include="Aop\IIntroductionAdvice.cs" />
-    <Compile Include="Aop\IMethodInvocation.cs" />
-    <Compile Include="Aop\IMethodMatcher.cs" />
-    <Compile Include="Aop\IPointcut.cs" />
-    <Compile Include="Aop\ITypeFilter.cs" />
-    <Compile Include="Aop\TrueMethodMatcher.cs" />
-    <Compile Include="Aop\TruePointcut.cs" />
-    <Compile Include="Aop\TrueTypeFilter.cs" />
-    <Compile Include="Aop\IAspect.cs" />
-    <Compile Include="ComponentLifeStyle.cs" />
+    <Compile Include="EnableAopModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Happy.Ioc\Happy.Ioc.csproj">
+      <Project>{94d50865-5d24-4c63-8e10-b18fbc4dbffb}</Project>
+      <Name>Happy.Ioc</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

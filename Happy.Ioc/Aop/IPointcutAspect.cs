@@ -6,18 +6,18 @@ using System.Text;
 namespace Happy.Ioc.Aop
 {
     /// <summary>
-    /// 切入点。
+    /// 切入点方面。
     /// </summary>
-    public interface IPointcut
+    public interface IPointcutAspect : IAspect
     {
         /// <summary>
-        /// 类型过滤器。
+        /// 切入点。
         /// </summary>
-        ITypeFilter TypeFilter { get; }
+        IPointcut Pointcut { get; }
 
         /// <summary>
-        /// 方法匹配器。
+        /// 切入点增强。
         /// </summary>
-        IMethodMatcher MethodMatcher { get; }
+        IPointcutAdvice Advice { get; }
     }
 }

@@ -6,9 +6,9 @@ using System.Text;
 namespace Happy.Ioc.Aop
 {
     /// <summary>
-    /// 切入点。
+    /// 引入方面。
     /// </summary>
-    public interface IPointcut
+    public interface IIntroductionAspect : IAspect
     {
         /// <summary>
         /// 类型过滤器。
@@ -16,8 +16,8 @@ namespace Happy.Ioc.Aop
         ITypeFilter TypeFilter { get; }
 
         /// <summary>
-        /// 方法匹配器。
+        /// 引入增强。
         /// </summary>
-        IMethodMatcher MethodMatcher { get; }
+        IIntroductionAdvice Advice { get; }
     }
 }
