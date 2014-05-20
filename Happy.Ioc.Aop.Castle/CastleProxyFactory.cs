@@ -14,16 +14,24 @@ namespace Happy.Ioc.Aop.Castle
     public sealed class CastleProxyFactory : IProxyFactory
     {
         private static ProxyGenerator _proxyGenerator = new ProxyGenerator();
-        private readonly IAspectRegistry _aspectRegistry;
+        private readonly IAspectsFinder _aspectsFinder;
 
         /// <summary>
         /// 构造方法。
         /// </summary>
-        public CastleProxyFactory(IAspectRegistry aspectRegistry)
+        public CastleProxyFactory()
+            : this(new ReflectionAspectsFinder())
         {
-            Check.MustNotNull(aspectRegistry, "aspectRegistry");
+        }
 
-            _aspectRegistry = aspectRegistry;
+        /// <summary>
+        /// 构造方法。
+        /// </summary>
+        public CastleProxyFactory(IAspectsFinder aspectsFinder)
+        {
+            Check.MustNotNull(aspectsFinder, "aspectsFinder");
+
+            _aspectsFinder = aspectsFinder;
         }
 
         /// <inheritdoc />
@@ -50,12 +58,12 @@ namespace Happy.Ioc.Aop.Castle
             }
         }
 
-        private IInterceptor[] GetInterceptors(object component)
+        private IInterceptor[] GetInterceptors(object target)
         {
-            return (from aspect in _aspectRegistry.Aspects
+            return (from aspect in _aspectsFinder.FindAspects(target.GetType())
                     where aspect is IPointcutAspect
                           && (aspect as IPointcutAspect).Pointcut.TypeFilter
-                                                            .Matches(component.GetType())
+                                                            .Matches(target.GetType())
                     select new PointcutAspectInterceptor(aspect as IPointcutAspect))
                                                                             .ToArray();
         }
@@ -68,8 +76,8 @@ namespace Happy.Ioc.Aop.Castle
                 return (from interceptor in interceptors
                         let aspectInterceptor = interceptor as PointcutAspectInterceptor
                         where aspectInterceptor == null
-                        || (aspectInterceptor.Aspect.Pointcut.MethodMatcher.Matches(
-                                                                        method, type))
+                              || (aspectInterceptor.Aspect.Pointcut.MethodMatcher
+                                                                .Matches(method, type))
                         select interceptor).ToArray();
             }
         }

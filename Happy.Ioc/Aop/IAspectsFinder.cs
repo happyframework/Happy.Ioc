@@ -6,13 +6,13 @@ using System.Text;
 namespace Happy.Ioc.Aop
 {
     /// <summary>
-    /// 方面注册表。
+    /// 方面查询器。
     /// </summary>
-    public interface IAspectRegistry
+    public interface IAspectsFinder
     {
         /// <summary>
-        /// 方面列表。
+        /// 查询方面列表。
         /// </summary>
-        IList<IAspect> Aspects { get; }
+        IEnumerable<IAspect> FindAspects(Type type);
     }
 }

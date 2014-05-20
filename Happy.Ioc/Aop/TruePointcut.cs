@@ -10,8 +10,7 @@ namespace Happy.Ioc.Aop
     /// </summary>
     public sealed class TruePointcut : IPointcut
     {
-        public static readonly TruePointcut True =
-                                                new TruePointcut();
+        public static readonly TruePointcut True = new TruePointcut();
 
         /// <inheritdoc />
         public ITypeFilter TypeFilter

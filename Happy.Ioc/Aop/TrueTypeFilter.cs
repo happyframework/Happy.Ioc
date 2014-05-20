@@ -11,7 +11,7 @@ namespace Happy.Ioc.Aop
     public sealed class TrueTypeFilter : ITypeFilter
     {
         public static readonly ITypeFilter True = new TrueTypeFilter();
-
+        
         private TrueTypeFilter() { }
 
         /// <inheritdoc />

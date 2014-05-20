@@ -7,11 +7,22 @@ using System.Reflection;
 namespace Happy.Ioc.Aop
 {
     /// <summary>
-    /// 典型类型。
+    /// 基于委托的方法匹配器。
     /// </summary>
-    public sealed class TrueMethodMatcher : IMethodMatcher
+    public sealed class PredicateMethodMatcher : IMethodMatcher
     {
-        public static readonly IMethodMatcher True = new TrueMethodMatcher();
+        private readonly Func<MethodInfo, Type, bool> _predicate;
+
+        /// <summary>
+        /// 构造方法。
+        /// </summary>
+        /// <param name="predicate"></param>
+        public PredicateMethodMatcher(Func<MethodInfo, Type, bool> predicate)
+        {
+            Check.MustNotNull(predicate, "predicate");
+
+            _predicate = predicate;
+        }
 
         /// <inheritdoc />
         public bool IsRuntime
@@ -22,7 +33,7 @@ namespace Happy.Ioc.Aop
         /// <inheritdoc />
         public bool Matches(MethodInfo method, Type targetType)
         {
-            return true;
+            return _predicate(method, targetType);
         }
 
         /// <inheritdoc />
