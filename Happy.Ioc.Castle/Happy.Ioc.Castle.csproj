@@ -7,8 +7,8 @@
     <ProjectGuid>{9A1CDC3C-A3A7-402E-A5DD-C85164C1F51E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Happy.Ioc.Aop.Castle</RootNamespace>
-    <AssemblyName>Happy.Ioc.Aop.Castle</AssemblyName>
+    <RootNamespace>Happy.Ioc.Castle</RootNamespace>
+    <AssemblyName>Happy.Ioc.Castle</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -48,8 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PointcutAspectInterceptor.cs" />
-    <Compile Include="CastleProxyFactory.cs" />
+    <Compile Include="Aop\PointcutAspectInterceptor.cs" />
+    <Compile Include="Aop\CastleProxyFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

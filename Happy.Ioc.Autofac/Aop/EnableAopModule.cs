@@ -8,7 +8,7 @@ using Autofac.Core;
 
 using Happy.Ioc.Aop;
 
-namespace Happy.Ioc.Autofac
+namespace Happy.Ioc.Autofac.Aop
 {
     /// <summary>
     /// 启用AOP。
@@ -17,6 +17,10 @@ namespace Happy.Ioc.Autofac
     {
         private readonly IProxyFactory _proxyFactory;
 
+        /// <summary>
+        /// 构造方法。
+        /// </summary>
+        /// <param name="proxyFactory"></param>
         public EnableAopModule(IProxyFactory proxyFactory)
         {
             Check.MustNotNull(proxyFactory, "proxyFactory");
@@ -36,6 +40,11 @@ namespace Happy.Ioc.Autofac
 
         private void OnActivating(object sender, ActivatingEventArgs<object> e)
         {
+            if (e.Instance.GetType().IsArray)
+            {
+                return;
+            }
+
             var serviceWithTypes = e.Component.Services.OfType<IServiceWithType>()
                                               .Select(x => x.ServiceType).ToList();
             if (!serviceWithTypes.Any())

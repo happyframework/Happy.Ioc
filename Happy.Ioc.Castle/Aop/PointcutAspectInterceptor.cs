@@ -6,7 +6,9 @@ using System.Reflection;
 
 using Castle.DynamicProxy;
 
-namespace Happy.Ioc.Aop.Castle
+using Happy.Ioc.Aop;
+
+namespace Happy.Ioc.Castle.Aop
 {
     /// <summary>
     /// 切入点方面拦截器。

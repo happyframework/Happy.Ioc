@@ -6,7 +6,9 @@ using System.Reflection;
 
 using Castle.DynamicProxy;
 
-namespace Happy.Ioc.Aop.Castle
+using Happy.Ioc.Aop;
+
+namespace Happy.Ioc.Castle.Aop
 {
     /// <summary>
     /// 基于Castle动态代理的实现。
@@ -20,7 +22,7 @@ namespace Happy.Ioc.Aop.Castle
         /// 构造方法。
         /// </summary>
         public CastleProxyFactory()
-            : this(new ReflectionAspectsFinder())
+            : this(new ServiceLocatorAspectsFinder())
         {
         }
 
@@ -36,36 +38,60 @@ namespace Happy.Ioc.Aop.Castle
 
         /// <inheritdoc />
         public object Create(object target, Type typeToProxy,
-                                                Type[] additionalInterfacesToProxy)
+                                            Type[] additionalInterfacesToProxy = null)
         {
+            Check.MustNotNull("target", "target");
+            Check.MustNotNull("typeToProxy", "typeToProxy");
+
+            var aspects = _aspectsFinder.FindAspects(target.GetType());
+            if (!aspects.Any())
+            {
+                return target;
+            }
+
             var options = new ProxyGenerationOptions
             {
                 Selector = new PointcutAspectInterceptorSelector()
             };
+            foreach (var instance in this.GetMixinInstances(target.GetType(), aspects))
+            {
+                options.AddMixinInstance(instance);
+            }
 
+            var interceptors = this.GetInterceptors(target.GetType(), aspects);
             if (typeToProxy.IsInterface)
             {
                 return _proxyGenerator.CreateInterfaceProxyWithTarget(typeToProxy,
-                                                      additionalInterfacesToProxy,
-                                                      target, options,
-                                                      GetInterceptors(target));
+                                                       additionalInterfacesToProxy,
+                                                       target, options, interceptors);
             }
             else
             {
                 return _proxyGenerator.CreateClassProxyWithTarget(typeToProxy,
-                                            additionalInterfacesToProxy,
-                                            target, options, GetInterceptors(target));
+                                                       additionalInterfacesToProxy,
+                                                       target, options, interceptors);
             }
         }
 
-        private IInterceptor[] GetInterceptors(object target)
+        private IEnumerable<object> GetMixinInstances(Type type,
+                                                            IEnumerable<IAspect> aspects)
         {
-            return (from aspect in _aspectsFinder.FindAspects(target.GetType())
-                    where aspect is IPointcutAspect
-                          && (aspect as IPointcutAspect).Pointcut.TypeFilter
-                                                            .Matches(target.GetType())
-                    select new PointcutAspectInterceptor(aspect as IPointcutAspect))
-                                                                            .ToArray();
+            return (from aspect in aspects
+                    let introductionAspect = aspect as IIntroductionAspect
+                    where introductionAspect != null
+                          && introductionAspect.TypeFilter.Matches(type)
+                    from instance in introductionAspect.Advice.Instances
+                    select instance);
+        }
+
+        private IInterceptor[] GetInterceptors(Type type, IEnumerable<IAspect> aspects)
+        {
+            return (from aspect in aspects
+                    let pointcutAspect = aspect as IPointcutAspect
+                    where pointcutAspect != null
+                          && pointcutAspect.Pointcut.TypeFilter
+                                                            .Matches(type)
+                    select new PointcutAspectInterceptor(pointcutAspect)).ToArray();
         }
 
         private class PointcutAspectInterceptorSelector : IInterceptorSelector
