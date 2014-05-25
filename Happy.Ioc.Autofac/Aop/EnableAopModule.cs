@@ -32,8 +32,8 @@ namespace Happy.Ioc.Autofac.Aop
         /// 挂钩事件到<paramref name="registration"/>。
         /// </summary>
         protected override void AttachToComponentRegistration(
-                                                IComponentRegistry componentRegistry,
-                                                IComponentRegistration registration)
+                                global::Autofac.Core.IComponentRegistry componentRegistry,
+                                IComponentRegistration registration)
         {
             registration.Activating += OnActivating;
         }
