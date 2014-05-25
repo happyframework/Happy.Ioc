@@ -37,6 +37,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Happy.ServiceLocation.Autofac">
+      <HintPath>..\..\Happy.ServiceLocation\Happy.ServiceLocation.Autofac\bin\Debug\Happy.ServiceLocation.Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -64,10 +67,6 @@
     <Compile Include="Stub\TestPointcutAspectAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Happy.Ioc.Autofac.ServiceLocation\Happy.Ioc.Autofac.ServiceLocation.csproj">
-      <Project>{079f8fe2-8343-4171-9aa0-c561e009a50b}</Project>
-      <Name>Happy.Ioc.Autofac.ServiceLocation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Happy.Ioc.Autofac\Happy.Ioc.Autofac.csproj">
       <Project>{84ee081f-81a9-41ab-b56e-d7644ea256d4}</Project>
       <Name>Happy.Ioc.Autofac</Name>

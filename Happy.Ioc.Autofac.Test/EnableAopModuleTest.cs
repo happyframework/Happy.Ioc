@@ -11,7 +11,7 @@ using Microsoft.Practices.ServiceLocation;
 
 using Happy.Ioc.Castle.Aop;
 using Happy.Ioc.Autofac.Aop;
-using Happy.Ioc.Autofac.ServiceLocation;
+using Happy.ServiceLocation.Autofac;
 using Happy.Ioc.Autofac.Test.Stub;
 
 namespace Happy.Ioc.Autofac.Test
