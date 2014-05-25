@@ -6,10 +6,10 @@ using System.Text;
 namespace Happy.Ioc.Aop
 {
     /// <summary>
-    /// 切点属性。
+    /// 切点方面属性。
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public abstract class PointcutAttribute : Attribute
+    public abstract class PointcutAspectAttribute : Attribute
     {
         /// <summary>
         /// 切点增强。

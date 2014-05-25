@@ -61,7 +61,7 @@
     <Compile Include="Stub\Playable.cs" />
     <Compile Include="Stub\TestAroundAdvice.cs" />
     <Compile Include="Stub\TestService.cs" />
-    <Compile Include="Stub\TestPointcutAttribute.cs" />
+    <Compile Include="Stub\TestPointcutAspectAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Happy.Ioc.Autofac.ServiceLocation\Happy.Ioc.Autofac.ServiceLocation.csproj">

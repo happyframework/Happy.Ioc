@@ -11,22 +11,22 @@ namespace Happy.Ioc.Aop
         /// <summary>
         /// 构造方法。
         /// </summary>
-        public IntroductionAdvice(object instance)
-            : this(new object[] { instance })
+        public IntroductionAdvice(Type type)
+            : this(new Type[] { type })
         {
         }
 
         /// <summary>
         /// 构造方法。
         /// </summary>
-        public IntroductionAdvice(object[] instances)
+        public IntroductionAdvice(Type[] types)
         {
-            Check.MustNotEmpty(instances, "instances");
+            Check.MustNotEmpty(types, "types");
 
-            this.Instances = instances;
+            this.Types = types;
         }
 
         /// <inheritdoc />
-        public object[] Instances { get; private set; }
+        public Type[] Types { get; private set; }
     }
 }

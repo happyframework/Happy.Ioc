@@ -11,8 +11,8 @@ namespace Happy.Ioc.Aop
     public interface IIntroductionAdvice : IAdvice
     {
         /// <summary>
-        /// 引入（掺入）的对象列表。
+        /// 引入（掺入）的类型列表。
         /// </summary>
-        object[] Instances { get; }
+        Type[] Types{ get; }
     }
 }

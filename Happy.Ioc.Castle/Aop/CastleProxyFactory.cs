@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 
 using Castle.DynamicProxy;
+using Microsoft.Practices.ServiceLocation;
 
 using Happy.Ioc.Aop;
 
@@ -17,6 +18,8 @@ namespace Happy.Ioc.Castle.Aop
     {
         private static ProxyGenerator _proxyGenerator = new ProxyGenerator();
         private readonly IAspectsFinder _aspectsFinder;
+        private readonly Lazy<IServiceLocator> _locator =
+                                new Lazy<IServiceLocator>(() => ServiceLocator.Current);
 
         /// <summary>
         /// 构造方法。
@@ -34,6 +37,18 @@ namespace Happy.Ioc.Castle.Aop
             Check.MustNotNull(aspectsFinder, "aspectsFinder");
 
             _aspectsFinder = aspectsFinder;
+        }
+
+        /// <summary>
+        /// 构造方法。
+        /// </summary>
+        public CastleProxyFactory(IAspectsFinder aspectsFinder, IServiceLocator locator)
+        {
+            Check.MustNotNull(aspectsFinder, "aspectsFinder");
+            Check.MustNotNull(locator, "locator");
+
+            _aspectsFinder = aspectsFinder;
+            _locator = new Lazy<IServiceLocator>(() => locator);
         }
 
         /// <inheritdoc />
@@ -80,8 +95,8 @@ namespace Happy.Ioc.Castle.Aop
                     let introductionAspect = aspect as IIntroductionAspect
                     where introductionAspect != null
                           && introductionAspect.TypeFilter.Matches(type)
-                    from instance in introductionAspect.Advice.Instances
-                    select instance);
+                    from t in introductionAspect.Advice.Types
+                    select _locator.Value.GetInstance(t));
         }
 
         private IInterceptor[] GetInterceptors(Type type, IEnumerable<IAspect> aspects)

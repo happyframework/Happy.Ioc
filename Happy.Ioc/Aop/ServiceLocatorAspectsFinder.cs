@@ -16,7 +16,7 @@ namespace Happy.Ioc.Aop
     /// </summary>
     public sealed class ServiceLocatorAspectsFinder : IAspectsFinder
     {
-        private Lazy<IServiceLocator> _locator;
+        private readonly Lazy<IServiceLocator> _locator;
 
         /// <summary>
         /// 构造方法。
@@ -50,14 +50,14 @@ namespace Happy.Ioc.Aop
         private IEnumerable<IAspect> FindPointcutAspects(Type type)
         {
 
-            var typeAspects = (from item in type.GetAttributes<PointcutAttribute>(true)
+            var typeAspects = (from item in type.GetAttributes<PointcutAspectAttribute>(true)
                                let typeFilter = new PredicateTypeFilter(t => t == type)
                                let pointcut = new Pointcut(typeFilter)
                                select new PointcutAspect(pointcut, item.Advice));
 
             var mehodAspects = type.GetMethods().SelectMany(method =>
             {
-                return (from item in method.GetAttributes<PointcutAttribute>(true)
+                return (from item in method.GetAttributes<PointcutAspectAttribute>(true)
                         let typeFilter = new PredicateTypeFilter(t => t == type)
                         let methodMatcher = new PredicateMethodMatcher((m, t) =>
                                                                         m.Match(method))
@@ -70,12 +70,9 @@ namespace Happy.Ioc.Aop
 
         private IEnumerable<IIntroductionAspect> FindIntroductionAspects(Type type)
         {
-            return (from item in type.GetAttributes<IntroductionAttribute>(true)
+            return (from item in type.GetAttributes<IntroductionAspectAttribute>(true)
                     let typeFilter = new PredicateTypeFilter(t => t == type)
-                    let instances = item.Types
-                                        .Select(x => _locator.Value.GetInstance(x))
-                                        .ToArray()
-                    let advice = new IntroductionAdvice(instances)
+                    let advice = new IntroductionAdvice(item.Types)
                     select new IntroductionAspect(typeFilter, advice));
         }
     }

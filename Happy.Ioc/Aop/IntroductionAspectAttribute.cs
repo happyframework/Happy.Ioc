@@ -6,15 +6,15 @@ using System.Text;
 namespace Happy.Ioc.Aop
 {
     /// <summary>
-    /// 引入属性。
+    /// 引入方面属性。
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public sealed class IntroductionAttribute : Attribute
+    public sealed class IntroductionAspectAttribute : Attribute
     {
         /// <summary>
         /// 构造方法。
         /// </summary>
-        public IntroductionAttribute(Type type)
+        public IntroductionAspectAttribute(Type type)
             : this(new Type[] { type })
         {
         }
@@ -22,7 +22,7 @@ namespace Happy.Ioc.Aop
         /// <summary>
         /// 构造方法。
         /// </summary>
-        public IntroductionAttribute(Type[] types)
+        public IntroductionAspectAttribute(Type[] types)
         {
             Check.MustNotEmpty(types, "types");
 

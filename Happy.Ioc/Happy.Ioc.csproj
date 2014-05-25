@@ -51,9 +51,9 @@
     <Compile Include="Aop\IntroductionAdvice.cs" />
     <Compile Include="Aop\Pointcut.cs" />
     <Compile Include="Aop\PointcutAspect.cs" />
-    <Compile Include="Aop\IntroductionAttribute.cs" />
+    <Compile Include="Aop\IntroductionAspectAttribute.cs" />
     <Compile Include="Aop\ServiceLocatorAspectsFinder.cs" />
-    <Compile Include="Aop\PointcutAttribute.cs" />
+    <Compile Include="Aop\PointcutAspectAttribute.cs" />
     <Compile Include="Aop\IAdvice.cs" />
     <Compile Include="Aop\IIntroductionAspect.cs" />
     <Compile Include="Aop\IPointcutAdvice.cs" />

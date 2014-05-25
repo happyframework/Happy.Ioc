@@ -7,12 +7,12 @@ using Happy.Ioc.Aop;
 
 namespace Happy.Ioc.Autofac.Test.Stub
 {
-    public sealed class TestPointcutAttribute : PointcutAttribute
+    public sealed class TestPointcutAspectAttribute : PointcutAspectAttribute
     {
         private readonly string _beforeMessage;
         private readonly string _afterMessage;
 
-        public TestPointcutAttribute(string beforeMessage, string afterMessage)
+        public TestPointcutAspectAttribute(string beforeMessage, string afterMessage)
         {
             _beforeMessage = beforeMessage;
             _afterMessage = afterMessage;
