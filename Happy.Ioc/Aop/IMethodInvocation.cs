@@ -38,7 +38,7 @@ namespace Happy.Ioc.Aop
         Type TargetType { get; }
 
         /// <summary>
-        /// 执行下一个增强。
+        /// 执行管道过滤器的下一个节点。
         /// </summary>
         object Proceed();
     }

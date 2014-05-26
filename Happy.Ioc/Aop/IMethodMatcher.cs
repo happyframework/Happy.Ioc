@@ -17,15 +17,13 @@ namespace Happy.Ioc.Aop
         bool IsRuntime { get; }
 
         /// <summary>
-        /// 精态匹配：<paramref name="targetType"/>的方法
-        /// <paramref name="method"/>是否匹配。
+        /// 精态匹配：<paramref name="targetType"/>的方法<paramref name="method"/>是否匹配。
         /// </summary>
         bool Matches(MethodInfo method, Type targetType);
 
         /// <summary>
-        /// 动态匹配：<paramref name="targetType"/>的方法
-        /// <paramref name="method"/>在某次调用下（调用参数为：
-        /// <paramref name="args"/>）是否匹配。
+        /// 动态匹配：<paramref name="targetType"/>的方法<paramref name="method"/>
+        /// 在某次调用下（调用参数为：<paramref name="args"/>）是否匹配。
         /// </summary>
         bool Matches(MethodInfo method, Type targetType, object[] args);
     }

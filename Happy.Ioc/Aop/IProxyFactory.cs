@@ -11,9 +11,10 @@ namespace Happy.Ioc.Aop
     public interface IProxyFactory
     {
         /// <summary>
-        /// 创建代理对象。
+        /// 创建<paramref name="target"/>的代理对象（类型为<paramref name="typeOfProxy"/>
+        /// 且实现了<paramref name="additionalInterfacesOfProxy"/>接口列表）。
         /// </summary>
-        object Create(object target, Type typeToProxy,
-                                                Type[] additionalInterfacesToProxy);
+        object Create(object target, Type typeOfProxy, 
+                                                    Type[] additionalInterfacesOfProxy);
     }
 }

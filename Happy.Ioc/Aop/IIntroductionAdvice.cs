@@ -6,7 +6,7 @@ using System.Text;
 namespace Happy.Ioc.Aop
 {
     /// <summary>
-    /// 引入增强。
+    /// 引入（掺入）增强。
     /// </summary>
     public interface IIntroductionAdvice : IAdvice
     {

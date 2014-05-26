@@ -52,8 +52,8 @@ namespace Happy.Ioc.Castle.Aop
         }
 
         /// <inheritdoc />
-        public object Create(object target, Type typeToProxy,
-                                            Type[] additionalInterfacesToProxy = null)
+        public object Create(object target, Type typeOfProxy,
+                                                    Type[] additionalInterfacesOfProxy)
         {
             Check.MustNotNull("target", "target");
             Check.MustNotNull("typeToProxy", "typeToProxy");
@@ -74,16 +74,16 @@ namespace Happy.Ioc.Castle.Aop
             }
 
             var interceptors = this.GetInterceptors(target.GetType(), aspects);
-            if (typeToProxy.IsInterface)
+            if (typeOfProxy.IsInterface)
             {
-                return _proxyGenerator.CreateInterfaceProxyWithTarget(typeToProxy,
-                                                       additionalInterfacesToProxy,
+                return _proxyGenerator.CreateInterfaceProxyWithTarget(typeOfProxy,
+                                                       additionalInterfacesOfProxy,
                                                        target, options, interceptors);
             }
             else
             {
-                return _proxyGenerator.CreateClassProxyWithTarget(typeToProxy,
-                                                       additionalInterfacesToProxy,
+                return _proxyGenerator.CreateClassProxyWithTarget(typeOfProxy,
+                                                       additionalInterfacesOfProxy,
                                                        target, options, interceptors);
             }
         }

@@ -11,7 +11,7 @@ namespace Happy.Ioc.Aop
     public interface IAroundAdvice : IPointcutAdvice
     {
         /// <summary>
-        /// 拦截。
+        /// 拦截<paramref name="invocation"/>代表的方法调用。
         /// </summary>
         object Intercept(IMethodInvocation invocation);
     }

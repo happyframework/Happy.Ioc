@@ -74,6 +74,7 @@
     <Compile Include="Aop\PredicateMethodMatcher.cs" />
     <Compile Include="ComponentAttribute.cs" />
     <Compile Include="ComponentLifeStyle.cs" />
+    <Compile Include="ComponentRegistryExtensions.cs" />
     <Compile Include="ComponentrScanner.cs" />
     <Compile Include="DependencyInfo.cs" />
     <Compile Include="DependencyAttribute.cs" />

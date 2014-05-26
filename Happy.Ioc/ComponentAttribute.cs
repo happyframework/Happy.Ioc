@@ -14,6 +14,14 @@ namespace Happy.Ioc
         /// <summary>
         /// 构造方法。
         /// </summary>
+        public ComponentAttribute(Type service)
+            : this(new Type[] { service })
+        {
+        }
+
+        /// <summary>
+        /// 构造方法。
+        /// </summary>
         public ComponentAttribute(Type[] services)
         {
             Check.MustNotNull(services, "services");

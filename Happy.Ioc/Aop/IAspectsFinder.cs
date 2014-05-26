@@ -11,7 +11,7 @@ namespace Happy.Ioc.Aop
     public interface IAspectsFinder
     {
         /// <summary>
-        /// 查询方面列表。
+        /// 查询<paramref name="type"/>对应的方面列表。
         /// </summary>
         IEnumerable<IAspect> FindAspects(Type type);
     }
