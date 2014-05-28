@@ -14,15 +14,33 @@ namespace Happy.Ioc
     public static class ComponentRegistryExtensions
     {
         /// <summary>
+        /// 根据<see cref="ComponentAttribute"/>自动将<paramref name="assemblies"/>中的类型
+        /// 注册到<paramref name="registry"/>中。
+        /// </summary>
+        public static IComponentRegistry AutoRegister(this IComponentRegistry registry,
+                                                        IEnumerable<Assembly> assemblies)
+        {
+            Check.MustNotNull(registry, "registry");
+            Check.MustNotNull(assemblies, "assemblies");
+
+            foreach (var assembly in assemblies)
+            {
+                registry.AutoRegister(assembly);
+            }
+
+            return registry;
+        }
+
+        /// <summary>
         /// 根据<see cref="ComponentAttribute"/>自动将<paramref name="assembly"/>中的类型
         /// 注册到<paramref name="registry"/>中。
         /// </summary>
-        /// <param name="registry"></param>
-        /// <param name="assembly"></param>
-        /// <returns></returns>
         public static IComponentRegistry AutoRegister(this IComponentRegistry registry,
                                                                     Assembly assembly)
         {
+            Check.MustNotNull(registry, "registry");
+            Check.MustNotNull(assembly, "assembly");
+
             foreach (var type in assembly.GetTypes())
             {
                 var componentAttribute = type.GetAttribute<ComponentAttribute>();
