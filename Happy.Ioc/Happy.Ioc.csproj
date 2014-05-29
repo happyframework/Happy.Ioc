@@ -75,9 +75,9 @@
     <Compile Include="ComponentAttribute.cs" />
     <Compile Include="ComponentLifeStyle.cs" />
     <Compile Include="ComponentRegistryExtensions.cs" />
-    <Compile Include="ComponentrScanner.cs" />
     <Compile Include="DependencyInfo.cs" />
     <Compile Include="DependencyAttribute.cs" />
+    <Compile Include="IComponentManualRegister.cs" />
     <Compile Include="IComponentRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
