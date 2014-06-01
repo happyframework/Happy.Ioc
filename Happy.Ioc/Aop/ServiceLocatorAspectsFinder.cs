@@ -16,30 +16,10 @@ namespace Happy.Ioc.Aop
     /// </summary>
     public sealed class ServiceLocatorAspectsFinder : IAspectsFinder
     {
-        private readonly Lazy<IServiceLocator> _locator;
-
-        /// <summary>
-        /// 构造方法。
-        /// </summary>
-        public ServiceLocatorAspectsFinder()
-        {
-            _locator = new Lazy<IServiceLocator>(() => ServiceLocator.Current);
-        }
-
-        /// <summary>
-        /// 构造方法。
-        /// </summary>
-        public ServiceLocatorAspectsFinder(IServiceLocator locator)
-        {
-            Check.MustNotNull(locator, "locator");
-
-            _locator = new Lazy<IServiceLocator>(() => locator);
-        }
-
         /// <inheritdoc />
         public IEnumerable<IAspect> FindAspects(Type type)
         {
-            var globalAspects = _locator.Value.GetAllInstances<IAspect>();
+            var globalAspects = ServiceLocator.Current.GetAllInstances<IAspect>();
             var pointcutAspects = this.FindPointcutAspects(type);
             var introductionAspects = this.FindIntroductionAspects(type);
 
