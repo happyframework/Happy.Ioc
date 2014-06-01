@@ -6,7 +6,7 @@ using System.Text;
 namespace Happy.Ioc
 {
     /// <summary>
-    /// 组件手工登记处，一般用户手工登记，推荐使用<see cref="ComponentAttribute"/>。
+    /// 组件手工登记处，用于手工登记，推荐使用<see cref="ComponentAttribute"/>。
     /// </summary>
     public interface IComponentManualRegister
     {

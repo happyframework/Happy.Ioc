@@ -23,16 +23,31 @@ namespace Happy.Ioc
         /// 构造方法。
         /// </summary>
         public ComponentAttribute(Type[] services)
+            : this(string.Empty, services)
         {
+        }
+
+        /// <summary>
+        /// 构造方法。
+        /// </summary>
+        public ComponentAttribute(string name, Type[] services)
+        {
+            Check.MustNotNull(name, "name");
             Check.MustNotNull(services, "services");
 
+            this.Name = name;
             this.LifeStyle = ComponentLifeStyle.Singleton;
         }
 
         /// <summary>
+        /// 自动命名组件。
+        /// </summary>
+        public bool AutoNamed { get; set; }
+
+        /// <summary>
         /// 组件名称。
         /// </summary>
-        public string Name { get; private set; }
+        private string Name { get; set; }
 
         /// <summary>
         /// 提供的服务。
@@ -42,6 +57,16 @@ namespace Happy.Ioc
         /// <summary>
         /// 生命周期风格。
         /// </summary>
-        public ComponentLifeStyle LifeStyle { get; private set; }
+        public ComponentLifeStyle LifeStyle { get; set; }
+
+        /// <summary>
+        /// 获取组件的名称。
+        /// </summary>
+        public string GetComponentName(Type componentType)
+        {
+            Check.MustNotNull(componentType, "componentType");
+
+            return this.AutoNamed ? componentType.FullName : this.Name;
+        }
     }
 }

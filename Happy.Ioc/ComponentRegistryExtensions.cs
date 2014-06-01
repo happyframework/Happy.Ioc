@@ -14,6 +14,58 @@ namespace Happy.Ioc
     public static class ComponentRegistryExtensions
     {
         /// <summary>
+        /// 注册实例。
+        /// </summary>
+        public static IComponentRegistry RegisterInstance(this IComponentRegistry registry,
+                                                          object instance,
+                                                          params Type[] services)
+        {
+            registry.RegisterInstance(string.Empty, instance, services);
+
+            return registry;
+        }
+
+        /// <summary>
+        /// 注册类型。
+        /// </summary>
+        public static IComponentRegistry Register(this IComponentRegistry registry,
+                                                  Type componentType,
+                                                  params Type[] services)
+        {
+            registry.Register(string.Empty, componentType, services,
+                                                            ComponentLifeStyle.Singleton);
+
+            return registry;
+        }
+
+        /// <summary>
+        /// 注册类型。
+        /// </summary>
+        public static IComponentRegistry Register(this IComponentRegistry registry,
+                                                  string name, Type componentType,
+                                                  params Type[] services)
+        {
+            registry.Register(name, componentType, services,
+                                                            ComponentLifeStyle.Singleton);
+
+            return registry;
+        }
+
+        /// <summary>
+        /// 注册类型。
+        /// </summary>
+        public static IComponentRegistry Register(this IComponentRegistry registry,
+                                                  string name, Type componentType,
+                                                  Type[] services,
+                                                  ComponentLifeStyle lifeStyle)
+        {
+            registry.Register(name, componentType, services, lifeStyle,
+                                                    Enumerable.Empty<DependencyInfo>());
+
+            return registry;
+        }
+
+        /// <summary>
         /// 执行<paramref name="assemblies"/>中的所有<see cref="IComponentManualRegister"/>
         /// 类型实例。
         /// </summary>
@@ -56,7 +108,7 @@ namespace Happy.Ioc
         /// 注册到<paramref name="registry"/>中。
         /// </summary>
         public static IComponentRegistry AutoRegister(this IComponentRegistry registry,
-                                                        IEnumerable<Assembly> assemblies)
+                                                      IEnumerable<Assembly> assemblies)
         {
             Check.MustNotNull(registry, "registry");
             Check.MustNotNull(assemblies, "assemblies");
@@ -74,27 +126,42 @@ namespace Happy.Ioc
         /// 注册到<paramref name="registry"/>中。
         /// </summary>
         public static IComponentRegistry AutoRegister(this IComponentRegistry registry,
-                                                                    Assembly assembly)
+                                                           Assembly assembly)
         {
             Check.MustNotNull(registry, "registry");
             Check.MustNotNull(assembly, "assembly");
 
             foreach (var type in assembly.GetTypes())
             {
-                var componentAttribute = type.GetAttribute<ComponentAttribute>();
-                if (componentAttribute == null)
-                {
-                    continue;
-                }
-
-                var dependencies = GetDependencies(type);
-
-                registry.Register(name: componentAttribute.Name,
-                                  componentType: type,
-                                  services: componentAttribute.Services,
-                                  lifeStyle: componentAttribute.LifeStyle,
-                                  dependencies: dependencies);
+                registry.AutoRegister(type);
             }
+
+            return registry;
+        }
+
+        /// <summary>
+        /// 根据<see cref="ComponentAttribute"/>自动将<paramref name="type"/>中的类型注册
+        /// 到<paramref name="registry"/>中。
+        /// </summary>
+        public static IComponentRegistry AutoRegister(this IComponentRegistry registry,
+                                                           Type type)
+        {
+            Check.MustNotNull(registry, "registry");
+            Check.MustNotNull(type, "type");
+
+            var componentAttribute = type.GetAttribute<ComponentAttribute>();
+            if (componentAttribute == null)
+            {
+                return registry;
+            }
+
+            var dependencies = GetDependencies(type);
+
+            registry.Register(name: componentAttribute.GetComponentName(type),
+                              componentType: type,
+                              services: componentAttribute.Services,
+                              lifeStyle: componentAttribute.LifeStyle,
+                              dependencies: dependencies);
 
             return registry;
         }
